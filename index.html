@@ -1,0 +1,123 @@
+<div id="source-code">
+  
+</div>
+<canvas id="spotlight-canvas"></canvas>
+
+<style>
+  :root {
+    --fg-color: #c76ebc;
+    --bg-color: #1c1c36;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    margin: 0;
+    scrollbar-color: var(--fg-color) 
+      var(--bg-color);
+  }
+  
+  #netnet {
+    font-size: 28px;
+  }
+  
+  #source-code {
+    color: var(--fg-color);
+    border: 4px solid var(--fg-color);
+    border-radius: 25px 1px 1px 25px;
+    box-shadow: rgba(0, 0, 0, 0.75) -18.1242px 
+      -7.99176px 33px -9px;
+    padding: 20px;
+    scrollbar-color: var(--fg-color) 
+      var(--bg-color);
+  }
+  
+  #spotlight-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+fetch('/').then(function(response) {
+  return response.text();
+}).then(function(data) {
+  document.getElementById('source-code').innerText += data;
+});
+  
+  //This editor is awesome, 
+  //I appreciate the work that's gone into it
+  /*
+    _createCanvas () {
+    this.canv = document.createElement('canvas')
+    this.canv.style.position = 'absolute'
+    this.canv.style.top = '0px'
+    this.canv.style.left = '0px'
+    this.canv.style.width = '100%'
+    this.canv.style.height = '100%'
+    this.canv.style.zIndex = '-10'
+    this.win.prepend(this.canv)
+    this._calcCanvasColors()
+    this._canvasResize()
+    this._canvasUpdate(0, 0)
+    this._canvasMouseMove({ clientX: 0, clientY: 0 })
+    return this.canv
+  }
+
+  _calcCanvasColors () {
+    const bg = window.getComputedStyle(document.documentElement)
+      .getPropertyValue('--netizen-background').substr(0, 7)
+    const c = Color.hex2hsv(bg)
+    const v0 = c.v + 10 <= 100 ? c.v + 10 : 100
+    const v1 = c.v - 10 >= 0 ? c.v - 10 : 0
+    this.grad0 = Color.hsv2hex(c.h, c.s, v0)
+    this.grad1 = Color.hsv2hex(c.h, c.s, v1)
+  }
+
+  _canvasUpdate (x, y) {
+    const ctx = this.canv.getContext('2d')
+    if (NNE.background) {
+      // if background is present, just match the color, avoid the maths below
+      const bg = window.getComputedStyle(document.documentElement)
+        .getPropertyValue('--netizen-background').substr(0, 7)
+      ctx.fillStyle = bg
+      ctx.fillRect(0, 0, this.canv.width, this.canv.height)
+      return
+    }
+    const rad = (this.canv.width > this.canv.height)
+      ? this.canv.width : this.canv.height
+    const g = ctx.createRadialGradient(x, y, 1, x, y, rad)
+    ctx.clearRect(0, 0, this.canv.width, this.canv.height)
+    g.addColorStop(0, this.grad0)
+    g.addColorStop(1, this.grad1)
+    ctx.fillStyle = g
+    ctx.fillRect(0, 0, this.canv.width, this.canv.height)
+  }
+
+  _canvasResize (e) {
+    e = e || {}
+    const x = (e.clientX || 0) - this.win.offsetLeft
+    const y = (e.clientY || 0) - this.win.offsetTop
+    this.canv.width = this.win.offsetWidth
+    this.canv.height = this.win.offsetHeight
+    this._canvasUpdate(x, y)
+  }
+
+  _canvasMouseMove (e) {
+    const ex = e.clientX
+    const ey = e.clientY
+    let x = ex - this.win.offsetLeft
+    let y = ey - this.win.offsetTop
+    if (ex < this.win.offsetLeft) x = 0
+    else if (ex > this.win.offsetLeft + this.win.offsetWidth) x = this.canv.width
+    if (ey < this.win.offsetTop) y = 0
+    else if (ey > this.win.offsetTop + this.win.offsetHeight) y = this.canv.height
+    this._canvasUpdate(x, y)
+  }*/
+</script>
+
+
+
