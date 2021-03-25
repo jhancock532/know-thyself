@@ -1,7 +1,16 @@
-<div id="source-code">
+<div id="netnet.studio">
+  <div id="netnet">
+    ◕ ◞  ◕ 
+<!-- I've hidden a whitespace character in NetNet to get the right spacing-->
+<!-- https://en.wikipedia.org/wiki/Whitespace_character -->
+  </div>
+
+  <code id="source-code">
+    <!-- But wait, it's empty? -->
+  </code>
   
+  <canvas id="spotlight-canvas"></canvas>
 </div>
-<canvas id="spotlight-canvas"></canvas>
 
 <style>
   :root {
@@ -16,12 +25,10 @@
       var(--bg-color);
   }
   
-  #netnet {
-    font-size: 28px;
-  }
-  
-  #source-code {
-    color: var(--fg-color);
+  #netnet\.studio {
+    /* You can use escape characters with CSS :o 
+    https://stackoverflow.com/questions/12310090/css-selector-with-period-in-id */
+    
     border: 4px solid var(--fg-color);
     border-radius: 25px 1px 1px 25px;
     box-shadow: rgba(0, 0, 0, 0.75) -18.1242px 
@@ -29,6 +36,21 @@
     padding: 20px;
     scrollbar-color: var(--fg-color) 
       var(--bg-color);
+  }
+  
+  #netnet {
+    font-size: 25px;
+    line-height: 1;
+    letter-spacing: -0.7px;
+    margin-top: -6px;
+    margin-bottom: 7px;
+    color: var(--fg-color);
+  }
+  
+  #source-code {
+    color: var(--fg-color);
+    font-size: 18px;
+    font-family: monospace;
   }
   
   #spotlight-canvas {
@@ -118,6 +140,7 @@ fetch('/').then(function(response) {
     this._canvasUpdate(x, y)
   }*/
 </script>
+
 
 
 
