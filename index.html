@@ -1,14 +1,14 @@
 <div id="netnet.studio">
   <div id="netnet">
-    ◕ ◞  ◕ 
+    0 . 0
 <!-- I've hidden a whitespace character in NetNet to get the right spacing-->
 <!-- This causes NetNet to break when I try to save my code, I think :( -->
 <!-- https://en.wikipedia.org/wiki/Whitespace_character -->
   </div>
 
-  <code id="source-code">
+  <div id="source-code">
     <!-- But wait, it's empty? -->
-  </code>
+  </div>
   
   <canvas id="spotlight-canvas"></canvas>
 </div>
@@ -34,9 +34,11 @@
     border-radius: 25px 1px 1px 25px;
     box-shadow: rgba(0, 0, 0, 0.75) -18.1242px 
       -7.99176px 33px -9px;
-    padding: 20px;
+    padding: 20px 10px 20px 20px;
     scrollbar-color: var(--fg-color) 
       var(--bg-color);
+    height: calc(100vh - 48px);
+    overflow: hidden;
   }
   
   #netnet {
@@ -52,6 +54,32 @@
     color: var(--fg-color);
     font-size: 18px;
     font-family: monospace;
+    height: calc(100% - 42px);
+    overflow-y: scroll;
+  }
+  
+  #source-code::before {
+    content: "";
+    /*Hide the top of the scrollbar*/
+    position: absolute;
+    right: 18px;
+    top: 45px;
+    width: 20px;
+    height: 20px;
+    background: var(--bg-color);
+    z-index: 5;
+  }
+  
+  #source-code::after {
+    content: "";
+    /*Hide the bottom of the scrollbar*/
+    position: absolute;
+    right: 18px;
+    bottom: 35px;
+    width: 20px;
+    height: 20px;
+    background: var(--bg-color);
+    z-index: 5;
   }
   
   #spotlight-canvas {
