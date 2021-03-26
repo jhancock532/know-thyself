@@ -56,19 +56,6 @@
     background: var(--bg-color);
   }
   
-  /*
-  #netnet::after {
-    content: "";
-    position: absolute;
-    top: 20px;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: red;
-    z-index: -1;
-  }
-  */
-  
   @font-face {
     font-family: "FiraMono";
     src: url("css/fonts/FiraMono-Regular.woff2") format("woff2") /* Super Modern Browsers */
@@ -149,6 +136,8 @@
     height: 100%;
     opacity: 0.1;
     pointer-events: none;
+    /* z-index: -5; */
+    /* mix-blend-mode: luminosity; */
   }
 </style>
 
@@ -178,18 +167,15 @@ let x = 300, y = 200, width = 500, height = 500;
 const rad = 500; //(this.canv.width > this.canv.height) ? this.canv.width : this.canv.height
   
 function drawSpotlight() {
-  const g = ctx.createRadialGradient(x, y, 1, x, y, rad)
-  ctx.clearRect(0, 0, width, height)
-  g.addColorStop(0, "white")
-  g.addColorStop(1, "black")
-  ctx.fillStyle = g
-  ctx.fillRect(0, 0, width, height)
+  const g = ctx.createRadialGradient(x, y, 1, x, y, rad);
+  ctx.clearRect(0, 0, width, height);
+  g.addColorStop(0, "#white");
+  g.addColorStop(1, "#151528");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, width, height);
 }
   
 document.body.addEventListener('mousemove', e => {
-  if (e.offsetX === 0 && e.offsetY === 0){
-    return;
-  }
   x = e.offsetX;
   y = e.offsetY;
   drawSpotlight();
