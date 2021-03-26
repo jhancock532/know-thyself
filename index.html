@@ -2,7 +2,6 @@
   <div id="netnet">
     ◕ ◞  ◕
 <!-- I've hidden a whitespace character in NetNet to get the right spacing-->
-<!-- This causes NetNet to break when I try to save my code, I think :( -->
 <!-- https://en.wikipedia.org/wiki/Whitespace_character -->
   </div>
 
@@ -13,7 +12,7 @@
     <div id="source-code"></div>
   </div>
   
-  <canvas id="spotlight-canvas"></canvas>
+  <canvas id="spotlight-canvas" width="500" height="500"></canvas>
 </div>
 
 <style>
@@ -43,10 +42,11 @@
       var(--bg-color);
     height: calc(100vh - 48px);
     overflow: hidden;
+    position: relative;
   }
   
   #netnet {
-    font-size: 25px;
+    font-size: 24px;
     line-height: 1;
     letter-spacing: -0.7px;
     margin-top: -6px; /* What is six */
@@ -76,11 +76,12 @@
   
   #source-code-container {
     color: var(--fg-color);
-    font-size: 17px;
+    font-size: 1em;
     font-family: "FiraMono", monospace;
     letter-spacing: 0.3px;
+    word-spacing: 1px;
     height: calc(100% - 4px);
-    line-height: 1.35;
+    line-height: 1.5em;
     margin-top: -32px;
     overflow-y: scroll;
     overflow-x: scroll;
@@ -107,12 +108,11 @@
     content: "";
     /*Hide the top right scrollbar arrow*/
     position: absolute;
-    right: 18px;
-    top: 29px;
+    right: 15px;
+    top: 28px;
     width: 20px;
     height: 20px;
     background: var(--bg-color);
-    z-index: 5;
   }
   
   #source-code-container::before {
@@ -121,7 +121,7 @@
     /*A bit hacky, also hides excess scrolling to the left*/
     position: absolute;
     left: 25px;
-    bottom: 18px;
+    bottom: 14px;
     width: 40px;
     height: 16px;
     background: var(--bg-color);
@@ -132,14 +132,13 @@
     /*Hide the bottom right scrollbar arrows */
     position: absolute;
     right: 10px;
-    bottom: 15px;
+    bottom: 14px;
     width: 38px;
     height: 35px;
     background: var(--bg-color);
     
     clip-path: polygon(0% 50%, 50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%);
     
-    z-index: 5;
   }
   
   #spotlight-canvas {
@@ -148,6 +147,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: 0.1;
     pointer-events: none;
   }
 </style>
@@ -168,9 +168,35 @@ fetch('/').then(function(response) {
   }
   
   lineNumbers.innerHTML += '<div style="height:7px;"></div>'
-
 });
   
+const canvas = document.getElementById("spotlight-canvas");
+const ctx = canvas.getContext("2d");
+//ctx.globalAlpha = 0.2;
+let x = 300, y = 200, width = 500, height = 500;
+  
+const rad = 500; //(this.canv.width > this.canv.height) ? this.canv.width : this.canv.height
+  
+function drawSpotlight() {
+  const g = ctx.createRadialGradient(x, y, 1, x, y, rad)
+  ctx.clearRect(0, 0, width, height)
+  g.addColorStop(0, "white")
+  g.addColorStop(1, "black")
+  ctx.fillStyle = g
+  ctx.fillRect(0, 0, width, height)
+}
+  
+document.body.addEventListener('mousemove', e => {
+  if (e.offsetX === 0 && e.offsetY === 0){
+    return;
+  }
+  x = e.offsetX;
+  y = e.offsetY;
+  drawSpotlight();
+});
+
+
+
   //This editor is awesome, 
   //I appreciate the work that's gone into it
   /*
@@ -188,16 +214,6 @@ fetch('/').then(function(response) {
     this._canvasUpdate(0, 0)
     this._canvasMouseMove({ clientX: 0, clientY: 0 })
     return this.canv
-  }
-
-  _calcCanvasColors () {
-    const bg = window.getComputedStyle(document.documentElement)
-      .getPropertyValue('--netizen-background').substr(0, 7)
-    const c = Color.hex2hsv(bg)
-    const v0 = c.v + 10 <= 100 ? c.v + 10 : 100
-    const v1 = c.v - 10 >= 0 ? c.v - 10 : 0
-    this.grad0 = Color.hsv2hex(c.h, c.s, v0)
-    this.grad1 = Color.hsv2hex(c.h, c.s, v1)
   }
 
   _canvasUpdate (x, y) {
@@ -228,16 +244,5 @@ fetch('/').then(function(response) {
     this.canv.height = this.win.offsetHeight
     this._canvasUpdate(x, y)
   }
-
-  _canvasMouseMove (e) {
-    const ex = e.clientX
-    const ey = e.clientY
-    let x = ex - this.win.offsetLeft
-    let y = ey - this.win.offsetTop
-    if (ex < this.win.offsetLeft) x = 0
-    else if (ex > this.win.offsetLeft + this.win.offsetWidth) x = this.canv.width
-    if (ey < this.win.offsetTop) y = 0
-    else if (ey > this.win.offsetTop + this.win.offsetHeight) y = this.canv.height
-    this._canvasUpdate(x, y)
   }*/
 </script>
