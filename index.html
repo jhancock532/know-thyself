@@ -1,3 +1,5 @@
+<!-- Code adapted from netnet.studio's source code -->
+
 <div id="netnet.studio">
   <div id="netnet">
     ◕ ◞  ◕
@@ -7,7 +9,6 @@
 
   <div id="source-code-container">
     <!-- But wait, it's empty? -->
-    
     <div id="line-numbers"></div>
     <div id="source-code"></div>
   </div>
@@ -54,6 +55,7 @@
     height: 42px; /* CSS magic! */
     color: var(--fg-color);
     background: var(--bg-color);
+    cursor: default;
   }
   
   @font-face {
@@ -72,6 +74,7 @@
     margin-top: -32px;
     overflow-y: scroll;
     overflow-x: scroll;
+    cursor: text;
   }
   
   #source-code {
@@ -123,9 +126,7 @@
     width: 38px;
     height: 35px;
     background: var(--bg-color);
-    
     clip-path: polygon(0% 50%, 50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%);
-    
   }
   
   #spotlight-canvas {
@@ -136,8 +137,6 @@
     height: 100%;
     opacity: 0.1;
     pointer-events: none;
-    /* z-index: -5; */
-    /* mix-blend-mode: luminosity; */
   }
 </style>
 
@@ -149,7 +148,6 @@ fetch('/').then(function(response) {
   sourceCode.innerText += data;
   
   let lengthOfCode = sourceCode.innerText.split("\n").length;
-  //This should be about 75
   
   let lineNumbers = document.getElementById('line-numbers');
   for (let i = 1; i < lengthOfCode; i++){
@@ -161,74 +159,37 @@ fetch('/').then(function(response) {
   
 const canvas = document.getElementById("spotlight-canvas");
 const ctx = canvas.getContext("2d");
-//ctx.globalAlpha = 0.2;
 let x = 300, y = 200, width = 500, height = 500;
   
-const rad = 500; //(this.canv.width > this.canv.height) ? this.canv.width : this.canv.height
+let rad = 500; //(this.canv.width > this.canv.height) ? this.canv.width : this.canv.height
   
 function drawSpotlight() {
   const g = ctx.createRadialGradient(x, y, 1, x, y, rad);
   ctx.clearRect(0, 0, width, height);
-  g.addColorStop(0, "#white");
+  g.addColorStop(0, "#8888ff");
   g.addColorStop(1, "#151528");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, width, height);
 }
   
 document.body.addEventListener('mousemove', e => {
-  x = e.offsetX;
-  y = e.offsetY;
+  x = e.clientX; //x position within the element.
+  y = e.clientY;  //y position within the element.
+  
   drawSpotlight();
 });
-
-
-
-  //This editor is awesome, 
-  //I appreciate the work that's gone into it
-  /*
-    _createCanvas () {
-    this.canv = document.createElement('canvas')
-    this.canv.style.position = 'absolute'
-    this.canv.style.top = '0px'
-    this.canv.style.left = '0px'
-    this.canv.style.width = '100%'
-    this.canv.style.height = '100%'
-    this.canv.style.zIndex = '-10'
-    this.win.prepend(this.canv)
-    this._calcCanvasColors()
-    this._canvasResize()
-    this._canvasUpdate(0, 0)
-    this._canvasMouseMove({ clientX: 0, clientY: 0 })
-    return this.canv
+  
+window.addEventListener('resize', e => {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  
+  if (width > height){
+    rad = width;
+  } else {
+    rad = height;
   }
-
-  _canvasUpdate (x, y) {
-    const ctx = this.canv.getContext('2d')
-    if (NNE.background) {
-      // if background is present, just match the color, avoid the maths below
-      const bg = window.getComputedStyle(document.documentElement)
-        .getPropertyValue('--netizen-background').substr(0, 7)
-      ctx.fillStyle = bg
-      ctx.fillRect(0, 0, this.canv.width, this.canv.height)
-      return
-    }
-    const rad = (this.canv.width > this.canv.height)
-      ? this.canv.width : this.canv.height
-    const g = ctx.createRadialGradient(x, y, 1, x, y, rad)
-    ctx.clearRect(0, 0, this.canv.width, this.canv.height)
-    g.addColorStop(0, this.grad0)
-    g.addColorStop(1, this.grad1)
-    ctx.fillStyle = g
-    ctx.fillRect(0, 0, this.canv.width, this.canv.height)
-  }
-
-  _canvasResize (e) {
-    e = e || {}
-    const x = (e.clientX || 0) - this.win.offsetLeft
-    const y = (e.clientY || 0) - this.win.offsetTop
-    this.canv.width = this.win.offsetWidth
-    this.canv.height = this.win.offsetHeight
-    this._canvasUpdate(x, y)
-  }
-  }*/
+  
+  canvas.width = width;
+  canvas.height = height;
+});
 </script>
