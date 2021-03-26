@@ -1,6 +1,6 @@
 <div id="netnet.studio">
   <div id="netnet">
-    0 . 0
+    ◕ ◞  ◕
 <!-- I've hidden a whitespace character in NetNet to get the right spacing-->
 <!-- This causes NetNet to break when I try to save my code, I think :( -->
 <!-- https://en.wikipedia.org/wiki/Whitespace_character -->
@@ -49,23 +49,39 @@
     font-size: 25px;
     line-height: 1;
     letter-spacing: -0.7px;
-    margin-top: -6px;
-    margin-bottom: 7px;
+    margin-top: -6px; /* What is six */
+    margin-bottom: 7px; /* times seven? */
+    height: 42px; /* CSS magic! */
     color: var(--fg-color);
+    background: var(--bg-color);
   }
+  
+  /*
+  #netnet::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: red;
+    z-index: -1;
+  }
+  */
   
   @font-face {
     font-family: "FiraMono";
     src: url("css/fonts/FiraMono-Regular.woff2") format("woff2") /* Super Modern Browsers */
   }
   
-  
   #source-code-container {
     color: var(--fg-color);
     font-size: 17px;
     font-family: "FiraMono", monospace;
     letter-spacing: 0.3px;
-    height: calc(100% - 20px);
+    height: calc(100% - 4px);
+    line-height: 1.35;
+    margin-top: -32px;
     overflow-y: scroll;
     overflow-x: scroll;
   }
@@ -92,7 +108,7 @@
     /*Hide the top right scrollbar arrow*/
     position: absolute;
     right: 18px;
-    top: 45px;
+    top: 29px;
     width: 20px;
     height: 20px;
     background: var(--bg-color);
@@ -151,7 +167,7 @@ fetch('/').then(function(response) {
     lineNumbers.innerHTML += '<div>' + i.toString() +'</div>';
   }
   
-
+  lineNumbers.innerHTML += '<div style="height:7px;"></div>'
 
 });
   
@@ -225,8 +241,3 @@ fetch('/').then(function(response) {
     this._canvasUpdate(x, y)
   }*/
 </script>
-
-
-
-
-
