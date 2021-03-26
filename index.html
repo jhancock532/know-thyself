@@ -62,31 +62,34 @@
   
   #source-code-container {
     color: var(--fg-color);
-    font-size: 18px;
+    font-size: 17px;
     font-family: "FiraMono", monospace;
     letter-spacing: 0.3px;
-    height: calc(100% - 42px);
+    height: calc(100% - 20px);
     overflow-y: scroll;
+    overflow-x: scroll;
   }
   
   #source-code {
     padding-left: 41px;
+    white-space: nowrap;
   }
   
   #line-numbers {
     position: relative;
     font-family: "FiraMono", monospace;
     color: var(--line-number-color);
-    left: 0;
+    left: -5px;
     top: 22px;
     height: 22px;
     width: 31px;
+    text-align: right;
     /* background: rgba(200, 200, 200, 0.5); */
   }
 
-  #source-code-container::before {
+  #source-code::before {
     content: "";
-    /*Hide the top of the scrollbar*/
+    /*Hide the top right scrollbar arrow*/
     position: absolute;
     right: 18px;
     top: 45px;
@@ -96,15 +99,30 @@
     z-index: 5;
   }
   
+  #source-code-container::before {
+    content: "";
+    /*Hide the bottom left scrollbar arrow */
+    /*A bit hacky, also hides excess scrolling to the left*/
+    position: absolute;
+    left: 25px;
+    bottom: 18px;
+    width: 40px;
+    height: 16px;
+    background: var(--bg-color);
+  }
+  
   #source-code-container::after {
     content: "";
-    /*Hide the bottom of the scrollbar*/
+    /*Hide the bottom right scrollbar arrows */
     position: absolute;
-    right: 18px;
-    bottom: 35px;
-    width: 20px;
-    height: 20px;
+    right: 10px;
+    bottom: 15px;
+    width: 38px;
+    height: 35px;
     background: var(--bg-color);
+    
+    clip-path: polygon(0% 50%, 50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%);
+    
     z-index: 5;
   }
   
