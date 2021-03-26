@@ -6,8 +6,11 @@
 <!-- https://en.wikipedia.org/wiki/Whitespace_character -->
   </div>
 
-  <div id="source-code">
+  <div id="source-code-container">
     <!-- But wait, it's empty? -->
+    
+    <div id="line-numbers"></div>
+    <div id="source-code"></div>
   </div>
   
   <canvas id="spotlight-canvas"></canvas>
@@ -17,6 +20,7 @@
   :root {
     --fg-color: #c76ebc;
     --bg-color: #1c1c36;
+    --line-number-color: #9885a6;
   }
   
   body {
@@ -50,15 +54,37 @@
     color: var(--fg-color);
   }
   
-  #source-code {
+  @font-face {
+    font-family: "FiraMono";
+    src: url("css/fonts/FiraMono-Regular.woff2") format("woff2") /* Super Modern Browsers */
+  }
+  
+  
+  #source-code-container {
     color: var(--fg-color);
     font-size: 18px;
-    font-family: monospace;
+    font-family: "FiraMono", monospace;
+    letter-spacing: 0.3px;
     height: calc(100% - 42px);
     overflow-y: scroll;
   }
   
-  #source-code::before {
+  #source-code {
+    padding-left: 41px;
+  }
+  
+  #line-numbers {
+    position: relative;
+    font-family: "FiraMono", monospace;
+    color: var(--line-number-color);
+    left: 0;
+    top: 22px;
+    height: 22px;
+    width: 31px;
+    /* background: rgba(200, 200, 200, 0.5); */
+  }
+
+  #source-code-container::before {
     content: "";
     /*Hide the top of the scrollbar*/
     position: absolute;
@@ -70,7 +96,7 @@
     z-index: 5;
   }
   
-  #source-code::after {
+  #source-code-container::after {
     content: "";
     /*Hide the bottom of the scrollbar*/
     position: absolute;
@@ -96,7 +122,19 @@
 fetch('/').then(function(response) {
   return response.text();
 }).then(function(data) {
-  document.getElementById('source-code').innerText += data;
+  let sourceCode = document.getElementById('source-code');
+  sourceCode.innerText += data;
+  
+  let lengthOfCode = sourceCode.innerText.split("\n").length;
+  //This should be about 75
+  
+  let lineNumbers = document.getElementById('line-numbers');
+  for (let i = 1; i < lengthOfCode; i++){
+    lineNumbers.innerHTML += '<div>' + i.toString() +'</div>';
+  }
+  
+
+
 });
   
   //This editor is awesome, 
@@ -169,6 +207,7 @@ fetch('/').then(function(response) {
     this._canvasUpdate(x, y)
   }*/
 </script>
+
 
 
 
